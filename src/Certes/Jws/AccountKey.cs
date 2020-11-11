@@ -11,7 +11,7 @@ namespace Certes.Jws
     public class AccountKey : IAccountKey
     {
         private static readonly KeyAlgorithmProvider keyAlgorithmProvider = new KeyAlgorithmProvider();
-        
+
         private JsonWebKey jwk;
         private readonly ISigner signer;
 
@@ -19,9 +19,10 @@ namespace Certes.Jws
         /// Initializes a new instance of the <see cref="AccountKey"/> class.
         /// </summary>
         /// <param name="algorithm">The JWS signature algorithm.</param>
-        public AccountKey(KeyAlgorithm algorithm = KeyAlgorithm.ES256)
+        /// <param name="strength">Optional strength , applies to RSA only (e.g. 2048)</param>
+        public AccountKey(KeyAlgorithm algorithm = KeyAlgorithm.ES256, int? strength = null)
         {
-            SignatureKey = KeyFactory.NewKey(algorithm);
+            SignatureKey = KeyFactory.NewKey(algorithm, strength);
             signer = SignatureKey.GetSigner();
         }
 

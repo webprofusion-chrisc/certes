@@ -13,11 +13,12 @@ namespace Certes
         /// Creates a random key.
         /// </summary>
         /// <param name="algorithm">The algorithm to use.</param>
+        /// <param name="strength">Optional strength (e.g. 2048, applies to RSA only)</param>
         /// <returns>The key created.</returns>
-        public static IKey NewKey(KeyAlgorithm algorithm)
+        public static IKey NewKey(KeyAlgorithm algorithm, int? strength = null)
         {
             var algo = keyAlgorithmProvider.Get(algorithm);
-            return algo.GenerateKey();
+            return algo.GenerateKey(strength);
         }
 
         /// <summary>
